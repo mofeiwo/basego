@@ -1,2 +1,6 @@
 package: basego
-import: []
+import:
+- package: github.com/gohouse/gorose
+  version: ^1.0.5
+- package: github.com/go-redis/redis
+  version: ^6.15.2
