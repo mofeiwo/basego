@@ -4,7 +4,6 @@ import (
 	"github.com/gohouse/gorose"
 	_ "github.com/go-sql-driver/mysql"
 	"sync"
-	"../exutil"
 )
 
 type MySQLClient struct {
@@ -18,7 +17,7 @@ func (c *MySQLClient) Instance(dns, prefix string) *gorose.Connection {
 		var err error
 		conn, err = gorose.Open(getDbConfig(dns, prefix))
 		if err != nil {
-			exutil.CheckErr(err)
+			panic(err)
 		}
 	})
 	return conn

@@ -5,7 +5,6 @@ import (
 	"bufio"
 	"strings"
 	"io"
-	"../../exutil"
 )
 
 type ConfigIni struct {
@@ -18,7 +17,6 @@ func LoadConfig(filepath string) *ConfigIni {
 	c.filepath = filepath
 	return c
 }
-
 
 func (c *ConfigIni) GetValue(mark, name string) string {
 	c.ReadList()
@@ -33,13 +31,12 @@ func (c *ConfigIni) GetValue(mark, name string) string {
 	return "no value"
 }
 
-
 //List all the configuration file
 func (c *ConfigIni) ReadList() []map[string]map[string]string {
 
 	file, err := os.Open(c.filepath)
 	if err != nil {
-		exutil.CheckErr(err)
+		panic(err)
 	}
 	defer file.Close()
 	var data map[string]map[string]string
@@ -50,7 +47,7 @@ func (c *ConfigIni) ReadList() []map[string]map[string]string {
 		line := strings.TrimSpace(l)
 		if err != nil {
 			if err != io.EOF {
-				exutil.CheckErr(err)
+				panic(err)
 			}
 			if len(line) == 0 {
 				break
@@ -58,9 +55,9 @@ func (c *ConfigIni) ReadList() []map[string]map[string]string {
 		}
 		switch {
 		case len(line) == 0:
-		case string(line[0]) == "#":	//增加配置文件备注
+		case string(line[0]) == "#": //增加配置文件备注
 		case line[0] == '[' && line[len(line)-1] == ']':
-			section = strings.TrimSpace(line[1 : len(line)-1])
+			section = strings.TrimSpace(line[1: len(line)-1])
 			data = make(map[string]map[string]string)
 			data[section] = make(map[string]string)
 		default:
@@ -68,7 +65,7 @@ func (c *ConfigIni) ReadList() []map[string]map[string]string {
 			if i == -1 {
 				continue
 			}
-			value := strings.TrimSpace(line[i+1 : len(line)])
+			value := strings.TrimSpace(line[i+1: len(line)])
 			data[section][strings.TrimSpace(line[0:i])] = value
 			if c.uniquappend(section) == true {
 				c.conflist = append(c.conflist, data)
