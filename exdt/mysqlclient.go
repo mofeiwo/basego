@@ -3,22 +3,24 @@ package exdt
 import (
 	"github.com/gohouse/gorose"
 	_ "github.com/go-sql-driver/mysql"
+	"sync"
+	"basego/exutil"
 )
 
 type MySQLClient struct {
-
 }
 
 var conn *gorose.Connection
+var mc sync.Once
 
-func (c *MySQLClient) Instance(dns, prefix string) *gorose.Connection  {
-	if conn == nil {
+func (c *MySQLClient) Instance(dns, prefix string) *gorose.Connection {
+	mc.Do(func() {
 		var err error
 		conn, err = gorose.Open(getDbConfig(dns, prefix))
 		if err != nil {
-			panic(err)
+			exutil.CheckErr(err)
 		}
-	}
+	})
 	return conn
 }
 
