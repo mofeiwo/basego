@@ -4,7 +4,7 @@ import (
 	"github.com/gohouse/gorose"
 	_ "github.com/go-sql-driver/mysql"
 	"sync"
-	"basego/exutil"
+	"../exutil"
 )
 
 type MySQLClient struct {
