@@ -5,7 +5,7 @@ import (
 	"bufio"
 	"strings"
 	"io"
-	"basego/exutil"
+	"../../exutil"
 )
 
 type ConfigIni struct {
