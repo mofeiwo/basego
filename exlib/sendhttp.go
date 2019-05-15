@@ -5,6 +5,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"errors"
+	"strings"
 )
 
 //http封装总结
@@ -24,6 +25,36 @@ func SendGetResponseBytes(client *http.Client, reqUrl string, requestHeaders map
 	} else {
 		req.Header.Add("Content-type", "application/x-www-form-urlencoded")
 		req.Header.Add("User-Agent",USERAGENT)
+	}
+
+	resp, err := client.Do(req)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	bodyData, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return nil, err
+	}
+
+	if resp.StatusCode != 200 {
+		return nil, errors.New(fmt.Sprintf("HttpStatusCode:%d ,Desc:%s", resp.StatusCode, string(bodyData)))
+	}
+
+	return bodyData, nil
+}
+
+func SendPostReturnBytes(client *http.Client, reqUrl string, postData string, requestHeaders map[string]string) ([]byte, error) {
+	req, _ := http.NewRequest("POST", reqUrl, strings.NewReader(postData))
+	if requestHeaders != nil {
+		for k, v := range requestHeaders {
+			req.Header.Add(k, v)
+		}
+	} else {
+		req.Header.Set("Content-Type","application/x-www-form-urlencoded")
+		req.Header.Set("User-Agent", USERAGENT)
 	}
 
 	resp, err := client.Do(req)

@@ -43,3 +43,4 @@ func FTPUploadFile(ftpserver, ftpuser, ftppwd, localFile, remoteSavePath, saveNa
 
 	fmt.Println("success upload file:", localFile)
 }
+
