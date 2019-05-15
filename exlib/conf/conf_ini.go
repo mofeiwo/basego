@@ -8,8 +8,8 @@ import (
 )
 
 type ConfigIni struct {
-	filepath string                         //your ini file path directory+file
-	conflist []map[string]map[string]string //configuration information slice
+	filepath string
+	conflist []map[string]map[string]string
 }
 
 func LoadConfig(filepath string) *ConfigIni {
@@ -18,6 +18,7 @@ func LoadConfig(filepath string) *ConfigIni {
 	return c
 }
 
+// 返回单个数据
 func (c *ConfigIni) GetValue(mark, name string) string {
 	c.ReadList()
 	conf := c.ReadList()
@@ -29,6 +30,20 @@ func (c *ConfigIni) GetValue(mark, name string) string {
 		}
 	}
 	return "no value"
+}
+
+// 批量返回数据
+func (c *ConfigIni) GetValues(mark string) map[string]string {
+	c.ReadList()
+	conf := c.ReadList()
+	for _, v := range conf {
+		for key, value := range v {
+			if key == mark {
+				return value
+			}
+		}
+	}
+	return nil
 }
 
 //List all the configuration file
