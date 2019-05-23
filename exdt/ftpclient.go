@@ -27,6 +27,7 @@ func FTPUploadFile(ftpserver, ftpuser, ftppwd, localFile, remoteSavePath, saveNa
 
 	if err != nil {
 		fmt.Println("open local file error:",err)
+		panic(err)
 	}
 
 	defer file.Close()
@@ -35,6 +36,7 @@ func FTPUploadFile(ftpserver, ftpuser, ftppwd, localFile, remoteSavePath, saveNa
 
 	if err != nil {
 		fmt.Println("store error:",err)
+		panic(err)
 	}
 
 	ftp.Logout()
@@ -43,4 +45,5 @@ func FTPUploadFile(ftpserver, ftpuser, ftppwd, localFile, remoteSavePath, saveNa
 
 	fmt.Println("success upload file:", localFile)
 }
+
 
