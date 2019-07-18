@@ -1,8 +1,8 @@
 package exdt
 
 import (
-	ftp2 "github.com/jlaffaye/ftp"
 	"fmt"
+	ftp2 "github.com/jlaffaye/ftp"
 	"os"
 )
 
@@ -17,17 +17,17 @@ func FTPUploadFile(ftpserver, ftpuser, ftppwd, localFile, remoteSavePath, saveNa
 	err = ftp.Login(ftpuser, ftppwd)
 
 	if err != nil {
-		fmt.Println("login error:",err)
+		fmt.Println("login error:", err)
 		//panic(err)
 		return err
 	}
 
 	ftp.ChangeDir(remoteSavePath)
 
-	file , err := os.Open(localFile)
+	file, err := os.Open(localFile)
 
 	if err != nil {
-		fmt.Println("open local file error:",err)
+		fmt.Println("open local file error:", err)
 		return err
 	}
 
@@ -36,7 +36,7 @@ func FTPUploadFile(ftpserver, ftpuser, ftppwd, localFile, remoteSavePath, saveNa
 	err = ftp.Stor(saveName, file)
 
 	if err != nil {
-		fmt.Println("store error:",err)
+		fmt.Println("store error:", err)
 		panic(err)
 		return err
 	}
@@ -48,5 +48,3 @@ func FTPUploadFile(ftpserver, ftpuser, ftppwd, localFile, remoteSavePath, saveNa
 	fmt.Println("success upload file:", localFile)
 	return nil
 }
-
-
