@@ -1,4 +1,6 @@
 package: basego
+ignore:
+  - github.com/gohouse/gorose
 import:
 - package: github.com/gohouse/gorose
   version: ^1.0.5
