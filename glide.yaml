@@ -2,8 +2,6 @@ package: basego
 ignore:
   - github.com/gohouse/gorose
 import:
-- package: github.com/gohouse/gorose
-  version: ^1.0.5
 - package: github.com/go-redis/redis
   version: ^6.15.2
 - package: github.com/json-iterator/go
