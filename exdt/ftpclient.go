@@ -37,7 +37,7 @@ func FTPUploadFile(ftpserver, ftpuser, ftppwd, localFile, remoteSavePath, saveNa
 
 	if err != nil {
 		fmt.Println("store error:", err)
-		panic(err)
+		//panic(err)
 		return err
 	}
 
