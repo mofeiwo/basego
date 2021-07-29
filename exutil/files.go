@@ -55,9 +55,9 @@ func ReadContentReturnBytes(filename string) []byte {
 
 // Return row
 func GetFileContentByRow(filename string) ([]string,error) {
-
+	var result []string
 	if !CheckFileIsExist(filename) {
-		CheckErr(errors.New("file does not exist"))
+		return result, errors.New("file does not exist")
 	}
 
 	f, err := os.Open(filename)
@@ -66,7 +66,6 @@ func GetFileContentByRow(filename string) ([]string,error) {
 	}
 	defer f.Close()
 	buf := bufio.NewReader(f)
-	var result []string
 	for {
 		line,_, err := buf.ReadLine()
 		lineinfo := strings.TrimSpace(string(line))
